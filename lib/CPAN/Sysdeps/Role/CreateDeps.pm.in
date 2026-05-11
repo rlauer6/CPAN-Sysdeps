@@ -1,0 +1,83 @@
+########################################################################
+package CPAN::Sysdeps::Role::CreateDeps;
+########################################################################
+
+use Role::Tiny;
+use English qw(-no_match_vars);
+use CLI::Simple::Constants qw(:booleans);
+use YAML::Tiny qw(DumpFile);
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+########################################################################
+sub cmd_create_deps {
+########################################################################
+  my ($self) = @_;
+
+  my $backend = $self->get_backend;
+  my $distro  = $self->get_distro;
+  my $output  = $self->get_output;
+  my $verbose = $self->get_verbose;
+
+  die sprintf "The %s backend is not yet implemented.\n", $self->get_type
+    if !$backend->is_implemented;
+
+  # build the 02packages lookup table (shared, stored on $self)
+  $self->build_cpan_index;
+
+  # each backend fetches and parses its own source index
+  my $url = $backend->source_url($distro);
+
+  my %mapping;
+
+  for my $entry ( $backend->parse_source_index($url) ) {
+    my $module = $self->canonical_module( $entry->{pkg} );
+
+    $self->get_logger->debug( sprintf '  %s -> %s', $entry->{pkg}, $module );
+
+    for my $dep ( @{ $entry->{deps} } ) {
+      $self->get_logger->debug( sprintf '    needs %s', $dep );
+      push @{ $mapping{$dep} }, $module;
+    }
+  }
+
+  # deduplicate and sort
+  for my $lib ( keys %mapping ) {
+    my %seen;
+    $mapping{$lib} = [ sort grep { !$seen{$_}++ } @{ $mapping{$lib} } ];
+  }
+
+  printf {*STDERR} "Writing %s (%d system libraries mapped)...\n", $output, scalar keys %mapping;
+
+  eval { DumpFile( $output, \%mapping ) };
+
+  die "Failed to write $output: $EVAL_ERROR\n"
+    if $EVAL_ERROR;
+
+  print {*STDERR} "Done.\n";
+
+  return $SUCCESS;
+}
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps::Role::CreateDeps - implements the create-deps command
+
+=head1 DESCRIPTION
+
+Fetches the distro source package index and CPAN's C<02packages>, builds
+a mapping of system library build dependencies to CPAN module names, and
+writes it to a YAML file.
+
+Invoked via:
+
+  cpan-sysdeps create-deps [--type debian|fedora] [--distro trixie]
+                            [--output debian-packages.yml] [--verbose]
+
+=cut

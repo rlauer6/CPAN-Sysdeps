@@ -1,0 +1,9 @@
+requires "CLI::Simple", "2.0.1";
+requires "CLI::Simple::Constants", "2.0.1";
+requires "HTTP::Tiny", "0.088";
+requires "IO::Uncompress::UnZstd", "2.217";
+requires "Readonly", "2.05";
+requires "Role::Tiny", "2.002004";
+requires "Role::Tiny::With", "2.002004";
+requires "XML::Twig", "3.54";
+requires "YAML::Tiny", "1.76";

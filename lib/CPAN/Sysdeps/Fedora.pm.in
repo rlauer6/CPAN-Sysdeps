@@ -1,0 +1,214 @@
+########################################################################
+package CPAN::Sysdeps::Fedora;
+########################################################################
+
+use strict;
+use warnings;
+
+use Role::Tiny::With;
+use HTTP::Tiny;
+use IO::Uncompress::UnZstd qw(unzstd $UnZstdError);
+use Readonly;
+use XML::Twig;
+
+with 'CPAN::Sysdeps::Role::Backend';
+
+Readonly::Scalar our $FEDORA_VERSION => '44';
+Readonly::Scalar our $FEDORA_URL =>
+  'https://dl.fedoraproject.org/pub/fedora/linux/releases/%s/Everything/source/tree/repodata/repomd.xml';
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+########################################################################
+sub new {
+########################################################################
+  my ( $class, %args ) = @_;
+
+  return bless \%args, $class;
+}
+
+########################################################################
+sub source_url {
+########################################################################
+  my ( $self, $release ) = @_;
+  $release //= $FEDORA_VERSION;
+
+  return sprintf $FEDORA_URL, $release;
+}
+
+########################################################################
+sub pkg_pattern { return qr/^perl-.+/xsm }
+########################################################################
+
+########################################################################
+# perl-Net-SSLeay  ->  Net::SSLeay
+# Simpler than Debian: strip 'perl-' prefix, replace '-' with '::'
+########################################################################
+sub pkg_to_module {
+########################################################################
+  my ( $self, $pkg ) = @_;
+
+  $pkg =~ s/^perl-//xsm;
+
+  return join q{::}, map { ucfirst $_ } split /-/xsm, $pkg;
+}
+
+########################################################################
+# Keep *-devel entries that are not Perl module packages.
+########################################################################
+sub dev_pkg_filter {
+########################################################################
+  my ( $self, $dep ) = @_;
+  return $dep =~ /-devel$/xsm && $dep !~ /perl/xsm;
+}
+
+########################################################################
+# RPM BuildRequires: individual lines, not comma-separated.
+# Strip version constraints and RPM macros, return bare package names.
+########################################################################
+sub parse_deps {
+########################################################################
+  my ( $self, $raw ) = @_;
+
+  my @deps;
+
+  for my $dep ( split /\n/xsm, $raw ) {
+    $dep =~ s/\s*[><=!]+\s*\S+//xsmg;  # strip version constraints  >= 1.0
+    $dep =~ s/%[{][^}]*[}]//xsmg;  # strip RPM macros           %{?_isa}
+    $dep =~ s/^\s+|\s+$//xsmg;  # trim
+    next if !$dep;
+    push @deps, $dep;
+  }
+
+  return @deps;
+}
+
+########################################################################
+# Fetch and parse the Fedora SRPM source index.
+# $url is the repomd.xml URL returned by source_url().
+# Handles the two-step fetch internally:
+#   1. Fetch repomd.xml, extract primary.xml.zst href
+#   2. Fetch, decompress, and stream-parse primary.xml
+########################################################################
+sub parse_source_index {
+########################################################################
+  my ( $self, $url ) = @_;
+
+  my $http = HTTP::Tiny->new( timeout => 120 );
+
+  # Step 1 - fetch repomd.xml
+  $self->get_logger->info( 'Fetching %s...', $url );
+
+  my $repomd_response = $http->get($url);
+  die sprintf "Failed to fetch repomd.xml: %s %s\n", $repomd_response->{status}, $repomd_response->{reason}
+    if !$repomd_response->{success};
+
+  # extract primary.xml.zst href - just find any href ending in primary.xml.zst
+  my ($href) = $repomd_response->{content} =~ m{href="([^"]+primary\.xml\.zst)"}xsm;
+  die "Could not locate primary.xml.zst in repomd.xml\n"
+    if !$href;
+
+  # construct full URL - base is repomd.xml URL with filename stripped
+  ( my $base = $url ) =~ s{repodata/repomd\.xml$}{}xsm;
+  my $primary_url = $base . $href;
+
+  # Step 2 - fetch primary.xml.zst
+  $self->get_logger->info( sprintf 'Fetching %s...', $primary_url );
+
+  my $primary_response = $http->get($primary_url);
+  die sprintf "Failed to fetch primary.xml.zst: %s %s\n", $primary_response->{status}, $primary_response->{reason}
+    if !$primary_response->{success};
+
+  # Step 3 - decompress (Zstandard, not gzip)
+  my $xml;
+  unzstd \$primary_response->{content} => \$xml
+    or die "unzstd failed: $UnZstdError\n";
+
+  # Step 4 - stream-parse with XML::Twig
+  $self->get_logger->info('Parsing primary.xml...');
+
+  my @results;
+  my $pattern = $self->pkg_pattern;
+  my ( $src_count, $perl_count ) = ( 0, 0 );
+
+  my $twig = XML::Twig->new(
+    twig_handlers => {
+      'package' => sub {
+        my ( $t, $pkg_el ) = @_;
+
+        # source packages have arch=src; type is always 'rpm' in Fedora
+        my $arch = $pkg_el->first_child_text('arch') // q{};
+        return
+          if $arch ne 'src';
+
+        $src_count++;
+
+        my $name = $pkg_el->first_child_text('name') // q{};
+
+        return
+          if $name !~ $pattern;
+
+        $perl_count++;
+
+        my @deps;
+        if ( my $fmt = $pkg_el->first_child('format') ) {
+          if ( my $requires = $fmt->first_child('rpm:requires') ) {
+            for my $entry ( $requires->children('rpm:entry') ) {
+              my $dep = $entry->att('name') // next;
+              next if !$self->dev_pkg_filter($dep);
+              push @deps, $dep;
+            }
+          }
+        }
+
+        return if !@deps;
+        push @results, { pkg => $name, deps => \@deps };
+
+        $t->purge;  # free parsed XML as we go
+      },
+    }
+  );
+
+  $twig->parse($xml);
+
+  $self->get_logger->info( sprintf '  src=%d perl=%d matched=%d', $src_count, $perl_count, scalar @results );
+
+  return @results;
+}
+
+1;
+
+## no critic (RequirePodSections)
+
+__END__
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps::Fedora - Fedora backend for CPAN::Sysdeps
+
+=head1 DESCRIPTION
+
+Implements L<CPAN::Sysdeps::Role::Backend> for Fedora/RPM systems.
+
+Fetches C<repomd.xml> from a Fedora mirror, locates the
+checksum-prefixed C<primary.xml.zst>, fetches and decompresses it
+using C<IO::Uncompress::UnZstd>, then stream-parses it with
+C<XML::Twig> to extract C<BuildRequires> for C<perl-*> source packages.
+
+=head1 DEPENDENCIES
+
+=over 4
+
+=item * L<IO::Uncompress::UnZstd> (C<IO-Compress-Zstd> on CPAN)
+
+=item * L<XML::Twig>
+
+=back
+
+=head1 SUPPORTED DISTROS
+
+Fedora release numbers: C<44> (default), C<43>, C<42>, etc.
+
+=cut

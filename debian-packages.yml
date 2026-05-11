@@ -1,0 +1,446 @@
+---
+libacl1-dev:
+- Linux::ACL
+libapr1-dev:
+- Apache::Ssllookup
+libapt-pkg-dev:
+- Apt::Pkg
+libasound2-dev:
+- MIDI::ALSA
+libaspell-dev:
+- Text::Aspell
+libaugeas-dev:
+- Config::Augeas
+- Config::Model::Backend::Augeas
+libbam-dev:
+- Bio::Samtools
+libblas-dev:
+- Math::TamuAnova
+libbluetooth-dev:
+- Net::Bluetooth
+libbrotli-dev:
+- IO::Compress::Brotli
+libbsd-dev:
+- BSD::arc4random
+libbz2-dev:
+- Compress::Bzip2
+- Compress::Raw::Bzip2
+- Tokyocabinet
+libcairo-dev:
+- Cairo::GObject
+libcairo2-dev:
+- Cairo
+- Glib::Object::Introspection
+libcap-dev:
+- Linux::Prctl
+libcdaudio-dev:
+- Audio::CD
+libcdio-dev:
+- Device::Cdio
+libcdk5-dev:
+- Cdk
+libcfitsio-dev:
+- Astro::FITS::CFITSIO
+libchasen-dev:
+- Text::ChaSen
+libclang-dev:
+- Clang
+libcmark-dev:
+- CommonMark
+libcrack2-dev:
+- Crypt::Cracklib
+libcups2-dev:
+- Net::CUPS
+libcupsfilters-dev:
+- Net::CUPS
+libcupsimage2-dev:
+- Net::CUPS
+libcurl4-gnutls-dev:
+- WWW::Curl
+libdb-dev:
+- BerkeleyDB
+libdbus-1-dev:
+- Net::DBus
+libdbus-glib-1-dev:
+- Net::DBus::GLib
+libdiscid-dev:
+- MusicBrainz::DiscID
+libdumbnet-dev:
+- Net::Libdnet
+libecasoundc-dev:
+- Audio::Ecasound
+libexpat1-dev:
+- App::Info
+- XML::Parser
+- XML::SAX::ExpatXS
+libfann-dev:
+- AI::FANN
+libfcgi-dev:
+- FCGI
+libffi-dev:
+- FFI::Platypus
+- Glib::Object::Introspection
+libfftw3-dev:
+- PDL::FFTW3
+libflac-dev:
+- Audio::FLAC::Decoder
+- Audio::FLAC::Header
+libfreecontact-dev:
+- Freecontact
+libfreetype-dev:
+- Font::FreeType
+- Imager
+libfribidi-dev:
+- Text::Bidi
+libfuse-dev:
+- Fuse
+libgcrypt20-dev:
+- Crypt::GCrypt
+- Net::SSH2
+libgd-dev:
+- GD
+- PDL::IO::GD
+libgdal-dev:
+- Geo::GDAL::FFI
+libgeoip-dev:
+- Geo::IP
+libgif-dev:
+- Image::Scale
+- Imager
+libgirepository1.0-dev:
+- Glib::Object::Introspection
+libgit2-dev:
+- Git::Raw
+libgl-dev:
+- OpenGL
+- OpenGL::Modern
+- PDL::Graphics::TriD
+- Wx::GLCanvas
+libgl1-mesa-dev | libgl-dev:
+- Alien::SDL
+- OpenGL::XScreenSaver
+libglfw3-dev:
+- OpenGL::GLFW
+libglib2.0-dev:
+- Glib
+- Glib::Object::Introspection
+- Net::Jabber::Loudmouth
+libglu1-mesa-dev | libglu-dev:
+- OpenGL
+- Wx::GLCanvas
+libglut-dev:
+- PDL::Graphics::TriD
+libgmp-dev:
+- Crypt::DH::GMP
+- Math::BigInt::GMP
+- Math::GMP
+- Math::MPFR
+- Math::Prime::Util::GMP
+libgoocanvas-2.0-dev:
+- GooCanvas2::CairoTypes
+libgsl-dev:
+- Math::GSL
+- PDL::GSL
+libgumbo-dev:
+- HTML::Gumbo
+libharfbuzz-dev:
+- HarfBuzz::Shaper
+libhdf4-alt-dev:
+- PDL::IO::HDF
+libhdf5-dev:
+- PDL::IO::HDF5
+libhiredis-dev:
+- Redis::Fast
+libhts-dev:
+- Bio::DB::HTS
+libhttp-parser-dev:
+- Git::Raw
+libhunspell-dev:
+- Text::Hunspell
+libi2c-dev:
+- HiPi
+libidn-dev:
+- Net::LibIDN
+libidn2-dev:
+- Net::LibIDN2
+- Zonemaster::LDNS
+libimlib2-dev | libimlib2-dev:
+- Image::Imlib2
+libiso9660-dev:
+- Device::Cdio
+libjpeg-dev:
+- Alien::SDL
+- Image::Scale
+- Imager
+libkakasi2-dev:
+- Text::Kakasi
+libkrb5-dev:
+- Authen::Krb5
+- Authen::Krb5::Admin
+- Authen::Krb5::Simple
+- GSSAPI
+liblbfgs-dev:
+- Algorithm::LBFGS
+libldap2-dev:
+- Mozilla::Ldap
+- Net::LDAPapi
+libldns-dev:
+- Net::LDNS
+- Zonemaster::LDNS
+liblmdb-dev:
+- Lmdb::File
+libloudmouth1-dev:
+- Net::Jabber::Loudmouth
+liblz4-dev:
+- Compress::LZ4
+liblzma-dev:
+- Compress::Raw::Lzma
+libmagic-dev:
+- File::LibMagic
+libmarkdown2-dev:
+- Text::Markdown::Discount
+libmatio-dev:
+- PDL::IO::Matlab
+libmaxminddb-dev:
+- IP::Geolocation::MMDB
+- MaxMind::DB::Reader::XS
+libmecab-dev:
+- Text::MeCab
+libmemcached-dev:
+- Memcached::libmemcached
+libmpfr-dev:
+- Math::MPFR
+libmsgpack-c-dev:
+- Data::MessagePack::Stream
+libmsgpack-dev:
+- Data::MessagePack
+libnanomsg-dev:
+- NanoMsg::Raw
+libnauty-dev:
+- Graph::Nauty
+libncurses-dev:
+- Curses
+libnetcdf-dev:
+- PDL::NetCDF
+libnsl-dev:
+- Net::NIS
+libnss3-dev:
+- Mozilla::Ldap
+libogg-dev:
+- Ogg::Vorbis::Decoder
+libois-dev:
+- OIS
+libopenblas-serial-dev:
+- PDL::LinearAlgebra
+libosp-dev:
+- SGML::Parser::OpenSP
+libossp-uuid-dev:
+- App::Info
+libpam0g-dev:
+- Authen::PAM
+libpango1.0-dev:
+- Pango
+libpcap-dev:
+- Net::RawIP
+libpcap0.8-dev:
+- Net::Pcap
+libpcre2-dev:
+- HTML::Template::Pro
+libplot-dev:
+- Graphics::Libplot
+libpng-dev:
+- Alien::SDL
+- Image::PNG::Libpng
+- Image::Scale
+- Imager
+libpq-dev:
+- DBD::Pg
+- Pg
+libproj-dev:
+- Geo::LibProj::FFI
+- PDL::Transform::Proj4
+libqrencode-dev:
+- Imager::QRCode
+- Text::QRCode
+librdkafka-dev:
+- Net::Kafka
+libre2-dev:
+- re::engine::RE2
+libreadline-dev:
+- Term::ReadLine::Gnu
+librostlab-blast0-dev:
+- Rg::Blast::Parser
+librostlab3-dev:
+- Rg::Blast::Parser
+librsvg2-dev:
+- Image::LibRSVG
+libsane-dev:
+- Image::Sane
+libsasl2-dev:
+- Authen::SASL::XS
+- Net::LDAPapi
+libsdl-gfx1.2-dev:
+- Alien::SDL
+libsdl-image1.2-dev:
+- Alien::SDL
+libsdl-mixer1.2-dev:
+- Alien::SDL
+libsdl-net1.2-dev:
+- Alien::SDL
+libsdl-pango-dev:
+- Alien::SDL
+libsdl-ttf2.0-dev:
+- Alien::SDL
+libsdl1.2-dev:
+- Alien::SDL
+libshp-dev:
+- Geo::Shapelib
+libslang2-dev:
+- Term::Slang
+libsmbclient-dev:
+- Filesys::SmbClient
+libsmpeg-dev:
+- Alien::SDL
+libsnappy-dev:
+- Compress::Snappy
+libsolv-dev:
+- Bssolv
+libsombok-dev:
+- Unicode::LineBreak
+libsqlite3-dev:
+- Dbd::Sqlite3
+libssh2-1-dev:
+- Git::Raw
+- Net::SSH2
+libssl-dev:
+- Crypt::OpenSSL::Bignum
+- Crypt::OpenSSL::DSA
+- Crypt::OpenSSL::EC
+- Crypt::OpenSSL::Guess
+- Crypt::OpenSSL::PKCS10
+- Crypt::OpenSSL::PKCS12
+- Crypt::OpenSSL::RSA
+- Crypt::OpenSSL::Random
+- Crypt::OpenSSL::X509
+- Crypt::SMIME
+- Crypt::SSLeay
+- DBD::MariaDB
+- DBD::mysql
+- Git::Raw
+- Net::DNS::SEC
+- Net::SSLeay
+- Net::TCLink
+- POE::Filter::SSL
+- Redis::Fast
+- Zonemaster::LDNS
+libstaden-read-dev:
+- Bio::SCF
+libsvm-dev:
+- Algorithm::SVM
+libsystemd-dev:
+- Linux::Systemd
+libtamuanova-dev:
+- Math::TamuAnova
+libtermkey-dev:
+- Term::TermKey
+- Tickit
+libthai-dev:
+- Unicode::LineBreak
+libtickit-dev:
+- Tickit
+libtidy-dev:
+- HTML::Tidy
+- HTML::Tidy5
+libtiff-dev:
+- Alien::SDL
+- Graphics::TIFF
+- Imager
+libtirpc-dev:
+- Ace
+- Quota
+libtokyocabinet-dev:
+- Tokyocabinet
+libu2f-server-dev:
+- Crypt::U2F::Server
+libunbound-dev:
+- Net::DNS::Resolver::Unbound
+libunibilium-dev:
+- Tickit
+libusb-1.0-0-dev:
+- USB::LibUSB
+libusb-dev:
+- Device::USB
+libv4l-dev:
+- Video::Capture::V4l
+libvirt-dev:
+- Sys::Virt
+libvorbis-dev:
+- Ogg::Vorbis::Decoder
+libwebkit2gtk-4.1-dev:
+- Gtk3::WebKit2
+libwrap0-dev:
+- Authen::Libwrap
+libwxgtk-media3.2-dev:
+- Alien::wxWidgets
+libwxgtk-webview3.2-dev:
+- Alien::wxWidgets
+libwxgtk3.2-dev:
+- Alien::wxWidgets
+libx11-dev:
+- OpenGL
+- OpenGL::Modern
+- OpenGL::XScreenSaver
+- Tk::TableMatrix
+- Wx::GLCanvas
+libxapian-dev:
+- Search::Xapian
+libxcb-ewmh-dev:
+- X11::XCB
+libxcb-icccm4-dev:
+- X11::XCB
+libxcb-randr0-dev:
+- X11::XCB
+libxcb-render0-dev:
+- X11::XCB
+libxcb-util-dev:
+- X11::XCB
+libxcb-xinerama0-dev:
+- X11::XCB
+libxcb-xinput-dev:
+- X11::XCB
+libxcb-xkb-dev:
+- X11::XCB
+libxcb-xtest0-dev:
+- X11::XCB
+libxcb1-dev:
+- X11::XCB
+libxext-dev:
+- PDL::Graphics::TriD
+libxi-dev:
+- PDL::Graphics::TriD
+libxml2-dev:
+- Config::Augeas
+- XML::LibXML
+- XML::LibXSLT
+libxmu-dev:
+- PDL::Graphics::TriD
+libxslt1-dev:
+- XML::LibXSLT
+libxt-dev:
+- X11::GUITest
+libxtst-dev:
+- X11::GUITest
+libxxhash-dev:
+- Crypt::xxHash
+libyaml-dev:
+- YAML::LibYAML
+libyaz-dev:
+- Net::Z3950::SimpleServer
+- Net::Z3950::ZOOM
+libzerg0-dev:
+- Zerg
+libzmq3-dev:
+- ZMQ::FFI
+libzstd-dev:
+- Sereal::Decoder
+- Sereal::Encoder

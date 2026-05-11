@@ -1,0 +1,20 @@
+---
+commands:
+  create-deps: CPAN::Sysdeps::Role::CreateDeps
+  find-deps:   CPAN::Sysdeps::Role::FindDeps
+
+options:
+  - help|h
+  - verbose|v
+  - type|t=s
+  - output|o=s
+  - distro|d=s
+  - module|m=s
+
+default_options:
+  type:   debian
+  distro: trixie
+
+extra_options:
+  - backend
+  - cpan_index

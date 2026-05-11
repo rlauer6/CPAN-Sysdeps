@@ -1,0 +1,107 @@
+########################################################################
+package CPAN::Sysdeps::Role::Backend;
+########################################################################
+
+use Role::Tiny;
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+########################################################################
+# Required interface — every backend must implement these methods.
+########################################################################
+
+# Returns the URL of the distro's source package index.
+#   my $url = $backend->source_url($distro);
+requires 'source_url';
+
+# Returns a compiled regex that matches Perl package names in the index.
+#   my $pat = $backend->pkg_pattern;   # e.g. qr/^lib.+-perl$/
+requires 'pkg_pattern';
+
+# Converts a distro package name to a best-guess CPAN module name.
+# The result is validated against 02packages by canonical_module().
+#   my $guess = $backend->pkg_to_module('libnet-ssleay-perl');
+#   # => 'Net::SSLeay'
+requires 'pkg_to_module';
+
+# Returns true if a build dependency name is a system library we care about.
+# Filters out toolchain deps, Perl test module deps, etc.
+#   $backend->dev_pkg_filter('libssl-dev')   # true
+#   $backend->dev_pkg_filter('perl-xs-dev')  # false
+requires 'dev_pkg_filter';
+
+# Parses a raw build dependency string into a list of bare package names,
+# stripping version constraints, arch restrictions, and build profiles.
+#   my @pkgs = $backend->parse_deps($raw_build_depends_value);
+requires 'parse_deps';
+
+# Parses the full source index content and returns a list of hashrefs:
+#   { pkg => 'libnet-ssleay-perl', deps => ['libssl-dev', ...] }
+# Only entries with at least one relevant system dep are returned.
+#   my @entries = $backend->parse_source_index($source_data);
+requires 'parse_source_index';
+
+########################################################################
+# Default implementation - returns the explicit is_implemented attribute
+# if set (e.g. stubs set this to $FALSE in new()), otherwise assumes
+# the backend is implemented if it can parse_deps.
+########################################################################
+sub is_implemented {
+########################################################################
+  my ($self) = @_;
+
+  return $self->{is_implemented}
+    if defined $self->{is_implemented};
+
+  return $self->can('parse_deps');
+}
+
+1;
+
+## no critic (RequirePodSections)
+
+__END__
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps::Role::Backend - interface role for distro-specific backends
+
+=head1 DESCRIPTION
+
+Every backend must consume this role and implement all required methods.
+See L<CPAN::Sysdeps::Debian> and L<CPAN::Sysdeps::Fedora> for concrete
+implementations.
+
+=head1 REQUIRED METHODS
+
+=head2 source_url($distro)
+
+Returns the URL of the source package index for the given distro
+codename or release number.
+
+=head2 pkg_pattern
+
+Returns a compiled regex matching Perl package names in the index.
+
+=head2 pkg_to_module($pkg)
+
+Converts a distro package name to a best-guess CPAN module name.
+
+=head2 dev_pkg_filter($dep)
+
+Returns true if C<$dep> is a system library build dependency worth
+recording in the mapping.
+
+=head2 parse_deps($raw)
+
+Parses a raw build-dependency string and returns a list of bare
+package names.
+
+=head2 parse_source_index($data)
+
+Parses the full source index and returns a list of
+C<{ pkg =E<gt> ..., deps =E<gt> [...] }> hashrefs.
+
+=cut

@@ -1,0 +1,31 @@
+---
+project:
+  description: CPAN::Sysdeps
+  author:
+    name: Rob Lauer
+    mailto: rclauer@gmail.com
+pm-module: CPAN::Sysdeps
+min-perl-version: 5.010
+dependencies:
+  requires: requires
+  test-requires: test-requires
+path:
+  pm-module: lib
+  exe-files: bin
+  tests: t
+extra-files:
+  - ChangeLog
+  - share:
+      - README.md
+      - cpan-sysdeps.yml
+      - debian-packages.yml
+      - fedora-packages.yml
+resources:
+  bugtracker:
+    mailto: rclauer@gmail.com
+    web: https://github.com/rlauer6/CPAN-Sysdeps/issues
+  homepage: https://github.com/rlauer6/CPAN-Sysdeps
+  repository:
+    type: git
+    url: git@github.com:rlauer6/CPAN-Sysdeps.git
+    web: https://github.com/rlauer6/CPAN-Sysdeps

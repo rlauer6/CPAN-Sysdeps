@@ -1,0 +1,188 @@
+########################################################################
+package CPAN::Sysdeps;
+########################################################################
+
+use strict;
+use warnings;
+
+use CLI::Simple qw(:roles);
+use CLI::Simple::Constants qw(:booleans);
+use English qw(-no_match_vars);
+
+use HTTP::Tiny;
+use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
+
+use parent qw(CLI::Simple);
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+__PACKAGE__->use_log4perl( level => 'info' );
+
+caller or exit __PACKAGE__->main;
+
+########################################################################
+sub init {
+########################################################################
+  my ($self) = @_;
+
+  my $type  = $self->get_type;
+  my $class = 'CPAN::Sysdeps::' . ucfirst $type;
+
+  eval "require $class" ## no critic (ProhibitStringyEval)
+    or die "Unknown backend type '$type' (tried $class): $EVAL_ERROR\n";
+
+  $self->set_backend( $class->new );
+
+  # default output filename derived from type unless explicitly set
+  if ( !$self->get_output ) {
+    $self->set_output( $type . '-packages.yml' );
+  }
+
+  return $self;
+}
+
+########################################################################
+# Fetch 02packages and build lc(module) => canonical_name lookup table.
+# Shared by both command roles via $self.
+########################################################################
+sub build_cpan_index {
+########################################################################
+  my ($self) = @_;
+
+  my $url = 'http://cpan.metacpan.org/modules/02packages.details.txt.gz';
+
+  $self->get_logger->info( sprintf 'Fetching %s...', $url );
+
+  my $http     = HTTP::Tiny->new( timeout => 60 );
+  my $response = $http->get($url);
+
+  die sprintf "Failed to fetch 02packages: %s %s\n", $response->{status}, $response->{reason}
+    if !$response->{success};
+
+  my $text;
+  gunzip \$response->{content} => \$text
+    or die "gunzip failed: $GunzipError\n";
+
+  my %index;  # lc(module_name) => canonical_module_name
+
+  # 02packages header is separated from data by a blank line
+  my $in_data = 0;
+  for my $line ( split /\n/, $text ) {
+    if ( !$in_data ) {
+      $in_data = 1 if $line eq '';
+      next;
+    }
+    my ($module) = split /\s+/, $line;
+    next if !$module;
+    $index{ lc $module } = $module;
+  }
+
+  $self->get_logger->info( sprintf '  %d modules indexed.', scalar keys %index );
+
+  $self->set_cpan_index( \%index );
+
+  return \%index;
+}
+
+########################################################################
+# Resolve a Debian/RPM package name to its canonical CPAN module name.
+# Asks the backend for a best-guess, then validates against 02packages.
+########################################################################
+sub canonical_module {
+########################################################################
+  my ( $self, $pkg ) = @_;
+
+  my $guess = $self->get_backend->pkg_to_module($pkg);
+  my $index = $self->get_cpan_index;
+
+  if ( my $canonical = $index->{ lc $guess } ) {
+    return $canonical;
+  }
+
+  $self->get_logger->warn( sprintf '  WARNING: %s not found in 02packages (guessed %s)', $pkg, $guess );
+
+  return $guess;
+}
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps - map CPAN modules to system library build dependencies
+
+=head1 SYNOPSIS
+
+  # build and cache the mapping for the current distro
+  cpan-sysdeps create-deps
+
+  # look up what a module needs
+  cpan-sysdeps find-deps Net::SSLeay
+
+  # use a different distro or backend
+  cpan-sysdeps create-deps --type fedora --distro 41
+
+=head1 DESCRIPTION
+
+C<CPAN::Sysdeps> answers the question "which system library do I need
+to install before C<cpm> can build this XS module?"
+
+It derives the answer automatically by cross-referencing two public
+indexes:
+
+=over 4
+
+=item * The distro's source package index (Debian C<Sources.gz>, Fedora
+SRPM repodata) — which lists C<Build-Depends>/C<BuildRequires> for every
+Perl package.
+
+=item * CPAN's C<02packages.details.txt.gz> — the authoritative list of
+module names, used to correct casing (C<DBD::Pg> not C<Dbd::Pg>).
+
+=back
+
+No per-module API calls.  No manually maintained lists.
+
+=head1 COMMANDS
+
+=head2 create-deps
+
+Fetch the source package index and C<02packages>, build the mapping, and
+write it to the output file (default: F<debian-packages.yml>).
+
+  cpan-sysdeps create-deps [--type debian|fedora] [--distro trixie]
+                            [--output packages.yml] [--verbose]
+
+=head2 find-deps
+
+Look up the system library dependencies for a CPAN module.  Reads the
+output file written by C<create-deps>.
+
+  cpan-sysdeps find-deps [--output packages.yml] <Module::Name>
+  cpan-sysdeps find-deps --module Module::Name
+
+Prints one library name per line, or C<none> if no system deps are
+required.
+
+=head1 OPTIONS
+
+  --type    -t   Backend: debian (default) or fedora
+  --distro  -d   Distro codename/release (default: trixie / 41)
+  --output  -o   Mapping file path (default: debian-packages.yml)
+  --module  -m   Module name for find-deps (alternative to positional arg)
+  --verbose  -v  Show per-package resolution progress
+  --help    -h   This help
+
+=head1 SEE ALSO
+
+L<CPAN::Sysdeps::Debian>, L<CPAN::Sysdeps::Fedora>,
+L<CPAN::Sysdeps::Role::Backend>
+
+=head1 AUTHOR
+
+Rob Lauer E<lt>rlauer@treasurersbriefcase.comE<gt>
+
+=cut

@@ -1,0 +1,83 @@
+########################################################################
+package CPAN::Sysdeps::Role::FindDeps;
+########################################################################
+
+use CLI::Simple::Constants qw(:booleans);
+use File::Basename qw(basename);
+use Role::Tiny;
+use YAML::Tiny qw(LoadFile);
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+########################################################################
+sub cmd_find_deps {
+########################################################################
+  my ($self) = @_;
+
+  # module name from positional arg or --module option
+  my ($module) = $self->get_args;
+  $module //= $self->get_module;
+
+  die "Usage: cpan-sysdeps find-deps <Module::Name>\n"
+    if !$module;
+
+  my $output = $self->get_output;
+
+  if ( !-e $output ) {
+    my $dist_dir = File::ShareDir::dist_dir( 'CPAN-Sysdeps', $output );
+    $output = "$dist_dir/$output";
+  }
+
+  die sprintf "Mapping file '%s' not found — run create-deps first.\n", basename($output)
+    if !-e $output;
+
+  my $mapping = LoadFile($output);
+
+  # invert: lib => [modules]  ->  module => [libs]
+  my %module_deps;
+  for my $lib ( keys %{$mapping} ) {
+    for my $mod ( @{ $mapping->{$lib} } ) {
+      push @{ $module_deps{$mod} }, $lib;
+    }
+  }
+
+  if ( my $deps = $module_deps{$module} ) {
+    foreach ( sort @{$deps} ) {
+      print "$_\n";
+    }
+  }
+  else {
+    print "none\n";
+  }
+
+  return $SUCCESS;
+}
+
+1;
+
+## no critic (RequirePodSections)
+
+__END__
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps::Role::FindDeps - implements the find-deps command
+
+=head1 DESCRIPTION
+
+Looks up the system library build dependencies for a CPAN module in the
+mapping file produced by C<create-deps>.
+
+  cpan-sysdeps find-deps Net::SSLeay
+  # libssl-dev
+
+  cpan-sysdeps find-deps Some::PurePerl::Module
+  # none
+
+The module name may also be supplied via C<--module>:
+
+  cpan-sysdeps find-deps --module Net::SSLeay
+
+=cut

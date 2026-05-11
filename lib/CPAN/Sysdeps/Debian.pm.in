@@ -1,0 +1,186 @@
+########################################################################
+package CPAN::Sysdeps::Debian;
+########################################################################
+
+use strict;
+use warnings;
+
+use CLI::Simple::Constants qw(:booleans :chars);
+use HTTP::Tiny;
+use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
+
+use Role::Tiny::With;
+with 'CPAN::Sysdeps::Role::Backend';
+
+use Readonly;
+Readonly::Scalar our $DEBIAN_URL     => 'http://deb.debian.org/debian/dists/%s/main/source/Sources.gz';
+Readonly::Scalar our $DEFAULT_DISTRO => 'trixie';
+
+our $VERSION = '@PACKAGE_VERSION@';
+
+########################################################################
+sub new {
+########################################################################
+  my ( $class, %args ) = @_;
+
+  return bless \%args, $class;
+}
+########################################################################
+
+########################################################################
+sub source_url {
+########################################################################
+  my ( $self, $distro ) = @_;
+
+  $distro //= $DEFAULT_DISTRO;
+
+  return sprintf $DEBIAN_URL, $distro;
+}
+
+########################################################################
+sub pkg_pattern { return qr/^lib.+-perl$/xsm }
+########################################################################
+
+########################################################################
+# libnet-ssleay-perl  ->  Net::SSLeay  (best-guess; corrected by 02packages)
+# libdbd-pg-perl      ->  Dbd::Pg      (02packages corrects to DBD::Pg)
+########################################################################
+sub pkg_to_module {
+########################################################################
+  my ( $self, $pkg ) = @_;
+
+  $pkg =~ s/^lib//xsm;
+  $pkg =~ s/-perl$//xsm;
+
+  return join q{::}, map { ucfirst $_ } split /-/xsm, $pkg;
+}
+
+########################################################################
+# Keep lib*-dev entries that are not Perl module packages.
+# Excludes: toolchain (debhelper, gcc, make), Perl test deps (lib*-perl*),
+# and anything with 'perl' in the name.
+########################################################################
+sub dev_pkg_filter {
+########################################################################
+  my ( $self, $dep ) = @_;
+  return $dep =~ /^lib.+-dev$/xsm && $dep !~ /perl/xsm;
+}
+
+########################################################################
+# Strip Debian-specific Build-Depends syntax:
+#   version constraints  (>= 1.0)
+#   build profiles       <!nocheck>
+#   arch restrictions    [linux-any]
+########################################################################
+sub parse_deps {
+########################################################################
+  my ( $self, $raw ) = @_;
+
+  my @deps;
+
+  for my $dep ( split /,/xsm, $raw ) {
+    $dep =~ s/\s*[(][^)]*[)]//xsmg;  # strip version constraints  (>= 1.0)
+    $dep =~ s/\s*<[^>]*>//xsmg;  # strip build profiles       <!nocheck>
+    $dep =~ s/\s*\[[^\]]*\]//xsmg;  # strip arch restrictions    [linux-any]
+    $dep =~ s/^\s+|\s+$//xsmg;  # trim
+    next if !$dep;
+    push @deps, $dep;
+  }
+
+  return @deps;
+}
+
+########################################################################
+# Parse the Debian Sources.gz stanza format.
+# Returns a list of { pkg => ..., deps => [...] } hashrefs.
+########################################################################
+sub parse_source_index {
+########################################################################
+  my ( $self, $url ) = @_;
+
+  $self->get_logger->info( sprintf 'Fetching %s...', $url );
+
+  my $http     = HTTP::Tiny->new( timeout => 60 );
+  my $response = $http->get($url);
+
+  die sprintf "Failed to fetch source index: %s %s\n", $response->{status}, $response->{reason}
+    if !$response->{success};
+
+  my $sources;
+  gunzip \$response->{content} => \$sources
+    or die "gunzip failed: $GunzipError\n";
+
+  $self->get_logger->info('Parsing...');
+
+  my @results;
+  my $pattern = $self->pkg_pattern;
+
+  for my $stanza ( split /\n\n+/xsm, $sources ) {
+
+    my ($pkg) = $stanza =~ /^Package:\s*(\S+)/xsm;
+    next if !$pkg || $pkg !~ $pattern;
+
+    my @deps;
+    for my $field (qw(Build-Depends Build-Depends-Indep)) {
+      my $raw = _extract_field( $stanza, $field ) or next;
+      push @deps, grep { $self->dev_pkg_filter($_) } $self->parse_deps($raw);
+    }
+
+    next if !@deps;
+    push @results, { pkg => $pkg, deps => \@deps };
+  }
+
+  return @results;
+}
+
+########################################################################
+# Extract a single field value from a Sources stanza, handling
+# multi-line continuation (lines starting with whitespace).
+########################################################################
+sub _extract_field {
+########################################################################
+  my ( $stanza, $field ) = @_;
+
+  my ( $value, $in_field ) = ( $EMPTY, $FALSE );
+
+  for my $line ( split /\n/xsm, $stanza ) {
+    if ( $line =~ /^\Q$field\E:\s*(.*)/xsmi ) {
+      $value    = $1;
+      $in_field = $TRUE;
+    }
+    elsif ( $in_field && $line =~ /^\s+(.*)/xsm ) {
+      $value .= " $1";
+    }
+    elsif ( $line =~ /^\S/xsm ) {
+      $in_field = $FALSE;
+    }
+  }
+
+  return $value || undef;
+}
+
+1;
+
+## no critic (RequirePodSections)
+
+__END__
+
+
+=pod
+
+=head1 NAME
+
+CPAN::Sysdeps::Debian - Debian backend for CPAN::Sysdeps
+
+=head1 DESCRIPTION
+
+Implements L<CPAN::Sysdeps::Role::Backend> for Debian-based systems.
+Parses C<Sources.gz> from a Debian mirror and extracts C<Build-Depends>
+entries for C<lib*-perl> source packages.
+
+=head1 SUPPORTED DISTROS
+
+Any Debian release codename accepted by the mirror:
+C<trixie> (default), C<bookworm>, C<bullseye>, etc.
+
+=cut
