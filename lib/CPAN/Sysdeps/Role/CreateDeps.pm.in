@@ -7,7 +7,7 @@ use English qw(-no_match_vars);
 use CLI::Simple::Constants qw(:booleans);
 use YAML::Tiny qw(DumpFile);
 
-our $VERSION = '@PACKAGE_VERSION@';
+our $VERSION = '1.0.1';
 
 ########################################################################
 sub cmd_create_deps {
@@ -33,6 +33,15 @@ sub cmd_create_deps {
   for my $entry ( $backend->parse_source_index($url) ) {
     my $module = $self->canonical_module( $entry->{pkg} );
 
+    if ( !defined $module ) {
+      # stage per system lib so todo file matches the packages file format
+      my $guess = $backend->pkg_to_module( $entry->{pkg} );
+      for my $dep ( @{ $entry->{deps} } ) {
+        $self->stage_override_todo( $dep, $guess );
+      }
+      next;
+    }
+
     $self->get_logger->debug( sprintf '  %s -> %s', $entry->{pkg}, $module );
 
     for my $dep ( @{ $entry->{deps} } ) {
@@ -43,8 +52,14 @@ sub cmd_create_deps {
 
   # deduplicate and sort
   for my $lib ( keys %mapping ) {
-    my %seen;
-    $mapping{$lib} = [ sort grep { !$seen{$_}++ } @{ $mapping{$lib} } ];
+    my %seen = map { $_ => 1 } @{ $mapping{$lib} };
+    $mapping{$lib} = [ sort keys %seen ];
+  }
+
+  # merge <type>-overrides.yml — add/replace lib entries that couldn't be auto-resolved
+  my $overrides = $self->load_overrides;
+  for my $lib ( keys %{$overrides} ) {
+    $mapping{$lib} = $overrides->{$lib};
   }
 
   printf {*STDERR} "Writing %s (%d system libraries mapped)...\n", $output, scalar keys %mapping;
@@ -54,12 +69,36 @@ sub cmd_create_deps {
   die "Failed to write $output: $EVAL_ERROR\n"
     if $EVAL_ERROR;
 
-  print {*STDERR} "Done.\n";
+  # write <type>-overrides-todo.yml — same lib => [modules] format as packages file
+  if ( my $todo = $self->get_override_todo ) {
+
+    # remove any lib already handled in <type>-overrides.yml — no need to re-stage
+    for ( keys %{$overrides} ) {
+      delete $todo->{$_};
+    }
+
+    if ( %{$todo} ) {
+      # dedup and sort each lib's guessed module list
+      for my $lib ( keys %{$todo} ) {
+        my %seen = map { $_ => 1 } @{ $todo->{$lib} };
+        $todo->{$lib} = [ sort keys %seen ];
+      }
+      my $todo_file = $self->get_type . '-overrides-todo.yml';
+      eval { DumpFile( $todo_file, $todo ) };
+      die "Failed to write $todo_file: $EVAL_ERROR\n"
+        if $EVAL_ERROR;
+      $self->get_logger->info( sprintf "Staged %d unresolved lib(s) to %s\n", scalar keys %{$todo}, $todo_file );
+    }
+  }
+
+  $self->get_logger->info('Done.');
 
   return $SUCCESS;
 }
 
 1;
+
+## no critic (RequirePodSections)
 
 __END__
 

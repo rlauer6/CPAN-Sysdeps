@@ -1,8 +1,43 @@
+Tue May 12 08:19:24 2026  Rob Lauer  <rclauer@gmail.com>
+
+	[1.0.1]:
+	* VERSION: bump
+	* requires: +File::ShareDir
+	* cpanfile: likewise
+	* release-notes/release-notes-1.0.1.md: new
+	* README.md: generated
+	* buildspec.yml: + *-overrides.yml files
+	* cpan-sysdeps.yml
+	(extra_options): + override_todo
+	* debian-overrices.ymlL DBD::SQLite
+	* fedora-overrides.yml: new
+	* ChangeLog: modified
+	* debian-overrides.yml: deleted
+	* debian-packages.yml: modified
+	* fedora-overrides.yml: deleted
+	* fedora-packages.yml: deleted
+	* lib/CPAN/Sysdeps.pm.in
+	(init): send logger to backend classes
+	(load_overrides): new
+	(stage_override_todo): new
+	* lib/CPAN/Sysdeps/Debian.pm.in
+	- remove new and move to parent class
+	* lib/CPAN/Sysdeps/Fedora.pm.in: likewise
+	* lib/CPAN/Sysdeps/Role/Backend.pm.in
+	(new): new, require logger
+	* lib/CPAN/Sysdeps/Role/CreateDeps.pm.in
+	(cmd_create_deps)
+	- stage guesses to todo file
+	- merge new todos
+	- write todo file
+
 Mon May 11 16:32:21  Rob Lauer  rclauer@gmail.com
 
 	[1.0.0]:
 
 	* .gitignore: new
+	* release-notes.md: new
+	* release-notest/release-notes-1.0.1.md: new
 	* .includes/git.mk: new
 	* .includes/help.mk: new
 	* .includes/perl.mk: new

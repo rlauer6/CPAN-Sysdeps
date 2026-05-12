@@ -1,288 +1,278 @@
 ---
 GeoIP-devel:
-- Geo::IP
+  - Geo::IP
 SDL_Pango-devel:
-- Alien::SDL
-- SDL
+  - Alien::SDL
+  - SDL
 SDL_gfx-devel:
-- Alien::SDL
-- SDL
+  - Alien::SDL
+  - SDL
 SDL_image-devel:
-- Alien::SDL
-- SDL
+  - Alien::SDL
+  - SDL
 SDL_mixer-devel:
-- Alien::SDL
-- SDL
+  - Alien::SDL
+  - SDL
 SDL_net-devel:
-- SDL
+  - SDL
 SDL_ttf-devel:
-- Alien::SDL
-- SDL
+  - Alien::SDL
+  - SDL
 aspell-devel:
-- Text::Aspell
+  - Text::Aspell
 boost-devel:
-- Boost::Geometry::Utils
+  - Boost::Geometry::Utils
 brotli-devel:
-- Alien::Brotli
+  - Alien::Brotli
 bzip2-devel:
-- Compress::Bzip2
-- Compress::Raw::Bzip2
+  - Compress::Bzip2
+  - Compress::Raw::Bzip2
 cairo-devel:
-- Cairo
+  - Cairo
 chmlib-devel:
-- Text::CHM
+  - Text::CHM
 cmark-devel:
-- Clownfish::CFC
-- CommonMark
+  - Clownfish::CFC
+  - CommonMark
 cracklib-devel:
-- Crypt::Cracklib
+  - Crypt::Cracklib
 csnappy-devel:
-- Sereal::Decoder
-- Sereal::Encoder
+  - Sereal::Decoder
+  - Sereal::Encoder
 cups-devel:
-- Net::CUPS
+  - Net::CUPS
 dbus-devel:
-- Net::DBus
-- Net::DBus::GLib
+  - Net::DBus
+  - Net::DBus::GLib
 dbus-glib-devel:
-- Net::DBus::GLib
+  - Net::DBus::GLib
 diffmark-devel:
-- XML::DifferenceMarkup
+  - XML::DifferenceMarkup
 expat-devel:
-- XML::Parser
-- XML::SAX::ExpatXS
+  - XML::Parser
+  - XML::SAX::ExpatXS
 file-devel:
-- File::LibMagic
-flow-tools-devel:
-- Cflow
+  - File::LibMagic
 freeglut-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 freetype-devel:
-- Alien::SDL
-- Imager
-- Tk
+  - Alien::SDL
+  - Imager
+  - Tk
 gd-devel:
-- GD
+  - GD
 gdbm-devel:
-- EV
-- File::MMagic::XS
-- Verilog::Perl
+  - EV
+  - File::MMagic::XS
 giflib-devel:
-- Imager
-- Prima
+  - Imager
+  - Prima
 glib2-devel:
-- Glib
+  - Glib
 gmp-devel:
-- Crypt::DH::GMP
-- Math::BigInt::GMP
-- Math::GMP
+  - Crypt::DH::GMP
+  - Math::BigInt::GMP
+  - Math::GMP
 goocanvas-devel:
-- Goo::Canvas
-grpc-devel:
-- Grpc::Xs
+  - Goo::Canvas
 gtk2-devel:
-- Gtk2
-- Gtk2::ImageView
-- Gtk2::Notify
-- Gtk2::Spell
-- Gtk2::TrayIcon
+  - Gtk2
+  - Gtk2::ImageView
+  - Gtk2::Notify
+  - Gtk2::Spell
+  - Gtk2::TrayIcon
 gtkimageview-devel:
-- Gtk2::ImageView
+  - Gtk2::ImageView
 gtkspell-devel:
-- Gtk2::Spell
+  - Gtk2::Spell
 gumbo-parser-devel:
-- Alien::LibGumbo
-- HTML::Gumbo
+  - Alien::LibGumbo
+  - HTML::Gumbo
 harfbuzz-devel:
-- HarfBuzz::Shaper
+  - HarfBuzz::Shaper
 hiredis-devel:
-- Redis::Fast
+  - Redis::Fast
 httpd-devel:
-- CGI::SpeedyCGI
+  - CGI::SpeedyCGI
 hunspell-devel:
-- Text::Hunspell
+  - Text::Hunspell
 iptables-devel:
-- IPTables::libiptc
+  - IPTables::libiptc
 kakasi-devel:
-- Text::Kakasi
+  - Text::Kakasi
 krb5-devel:
-- GSSAPI
+  - GSSAPI
 libGLU-devel:
-- SDL
+  - SDL
 libICE-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 libX11-devel:
-- OpenGL::GLUT
-- Tk
-- Tk::TableMatrix
+  - OpenGL::GLUT
+  - Tk
+  - Tk::TableMatrix
 libXext-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 libXft-devel:
-- Tk
+  - Tk
 libXi-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 libXmu-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 libapreq2-devel:
-- Maypole
+  - Maypole
 libcupsfilters-devel:
-- Net::CUPS
+  - Net::CUPS
 libcurl-devel:
-- WWW::Curl
+  - WWW::Curl
 libdb-devel:
-- BDB
-- BerkeleyDB
-- DB_File
-- LMDB_File
+  - BDB
+  - BerkeleyDB
+  - DB_File
+  - LMDB_File
 libdiscid-devel:
-- MusicBrainz::DiscID
+  - MusicBrainz::DiscID
 libevent-devel:
-- Event::Lib
+  - Event::Lib
 libfbclient2-devel:
-- DBD::Firebird
+  - DBD::Firebird
 libgcrypt-devel:
-- Crypt::GCrypt
-- Net::SSH2
+  - Crypt::GCrypt
+  - Net::SSH2
 libgnomeui-devel:
-- Gnome2
+  - Gnome2
 libgtop2-devel:
-- GTop
+  - GTop
 libicu-devel:
-- DBD::Firebird
+  - DBD::Firebird
 libidn-devel:
-- Net::LibIDN
+  - Net::LibIDN
 libidn2-devel:
-- Net::LibIDN2
+  - Net::LibIDN2
 libjpeg-devel:
-- Imager
-- Prima
-- SDL
-- Tk
+  - Imager
+  - Prima
+  - SDL
+  - Tk
 liblzf-devel:
-- Compress::LZF
+  - Compress::LZF
 libmaxminddb-devel:
-- MaxMind::DB::Reader::XS
+  - MaxMind::DB::Reader::XS
 libnotify-devel:
-- Gtk2::Notify
+  - Gtk2::Notify
 libpcap-devel:
-- Net::Pcap
-- Net::RawIP
+  - Net::Pcap
+  - Net::RawIP
 libpng-devel:
-- Imager
-- SDL
-- Tk
+  - Imager
+  - SDL
+  - Tk
 libpq-devel:
-- DBD::Pg
-- Pgsql_perl5
-libsolv-devel:
-- BSSolv
+  - DBD::Pg
 libsoup-devel:
-- HTTP::Soup
+  - HTTP::Soup
 libssh2-devel:
-- Net::SSH2
+  - Net::SSH2
 libsvm-devel:
-- Algorithm::SVM
+  - Algorithm::SVM
 libthai-devel:
-- Unicode::LineBreak
+  - Unicode::LineBreak
 libtiff-devel:
-- Imager
+  - Imager
 libu2f-server-devel:
-- Crypt::U2F::Server
+  - Crypt::U2F::Server
 libvirt-devel:
-- Sys::Virt
+  - Sys::Virt
 libxml2-devel:
-- XML::DifferenceMarkup
-- XML::LibXML
+  - XML::DifferenceMarkup
+  - XML::LibXML
 libyaml-devel:
-- YAML::LibYAML
-- YAML::LibYAML::API
+  - YAML::LibYAML
+  - YAML::LibYAML::API
 libzstd-devel:
-- Sereal::Decoder
-- Sereal::Encoder
+  - Sereal::Decoder
+  - Sereal::Encoder
 lmdb-devel:
-- LMDB_File
+  - LMDB_File
 mariadb-connector-c-devel:
-- DBD::MariaDB
-mecab-devel:
-- Mecab
+  - DBD::MariaDB
 mesa-libGL-devel:
-- OpenGL
-- OpenGL::GLUT
+  - OpenGL
+  - OpenGL::GLUT
 miniz-devel:
-- Sereal::Decoder
-- Sereal::Encoder
+  - Sereal::Decoder
+  - Sereal::Encoder
 mysql-devel:
-- DBD::mysql
+  - DBD::mysql
 ncurses-devel:
-- Curses
-- Term::ReadLine::Gnu
+  - Curses
+  - Term::ReadLine::Gnu
 newt-devel:
-- Newt
+  - Newt
 opensp-devel:
-- SGML::Parser::OpenSP
+  - SGML::Parser::OpenSP
 openssl-devel:
-- Crypt::OpenSSL::AES
-- Crypt::OpenSSL::ECDSA
-- Crypt::OpenSSL::PKCS10
-- Crypt::OpenSSL::RSA
-- Crypt::OpenSSL::Random
-- Crypt::OpenSSL::X509
-- Crypt::SMIME
-- DBD::MariaDB
-- DBD::mysql
-- Net::SSH2
-- Net::SSLeay
-- Redis::Fast
+  - Crypt::OpenSSL::AES
+  - Crypt::OpenSSL::ECDSA
+  - Crypt::OpenSSL::PKCS10
+  - Crypt::OpenSSL::RSA
+  - Crypt::OpenSSL::Random
+  - Crypt::OpenSSL::X509
+  - Crypt::SMIME
+  - DBD::MariaDB
+  - DBD::mysql
+  - Net::SSH2
+  - Net::SSLeay
+  - Redis::Fast
 pam-devel:
-- Authen::PAM
+  - Authen::PAM
 pango-devel:
-- Pango
+  - Pango
 pcre2-devel:
-- Alien::PCRE2
-- HTML::Template::Pro
+  - Alien::PCRE2
+  - HTML::Template::Pro
 python3-devel:
-- Inline::Python
+  - Inline::Python
 qrencode-devel:
-- Text::QRCode
+  - Text::QRCode
 re2-devel:
-- re::engine::RE2
+  - re::engine::RE2
 readline-devel:
-- Term::ReadLine::Gnu
+  - Term::ReadLine::Gnu
 rpm-devel:
-- RPM2
+  - RPM2
 sdl12-compat-devel:
-- Alien::SDL
+  - Alien::SDL
 sombok-devel:
-- Unicode::LineBreak
+  - Unicode::LineBreak
 sqlite-devel:
-- DBD::SQLite
+  - DBD::SQLite
 sqlite2-devel:
-- DBD::SQLite2
+  - DBD::SQLite2
 t1lib-devel:
-- Imager
+  - Imager
 web-assets-devel:
-- Locale::TextDomain::OO::Util
-- Module::Metadata::Changes
+  - Locale::TextDomain::OO::Util
+  - Module::Metadata::Changes
 wxGTK-devel:
-- Alien::wxWidgets
-- Wx
-- Wx::GLCanvas
+  - Alien::wxWidgets
+  - Wx
+  - Wx::GLCanvas
 xapian-core-devel:
-- Search::Xapian
+  - Search::Xapian
 xorg-x11-proto-devel:
-- Gtk2::TrayIcon
+  - Gtk2::TrayIcon
 xz-devel:
-- Compress::Raw::Lzma
+  - Compress::Raw::Lzma
 zeromq-devel:
-- Alien::ZMQ
+  - Alien::ZMQ
 zlib-devel:
-- Compress::Raw::Zlib
-- DBD::mysql
-- Devel::NYTProf
-- Net::SSH2
-- PerlIO::gzip
+  - Compress::Raw::Zlib
+  - DBD::mysql
+  - Devel::NYTProf
+  - Net::SSH2
+  - PerlIO::gzip

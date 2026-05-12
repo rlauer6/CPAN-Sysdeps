@@ -1,5 +1,6 @@
 requires "CLI::Simple", "2.0.1";
 requires "CLI::Simple::Constants", "2.0.1";
+requires "File::ShareDir", "1.118";
 requires "HTTP::Tiny", "0.088";
 requires "IO::Uncompress::UnZstd", "2.217";
 requires "Readonly", "2.05";

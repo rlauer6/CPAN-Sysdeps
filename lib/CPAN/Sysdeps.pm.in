@@ -9,8 +9,10 @@ use CLI::Simple qw(:roles);
 use CLI::Simple::Constants qw(:booleans);
 use English qw(-no_match_vars);
 
+use File::ShareDir qw(dist_dir);
 use HTTP::Tiny;
 use IO::Uncompress::Gunzip qw(gunzip $GunzipError);
+use YAML::Tiny qw(LoadFile DumpFile);
 
 use parent qw(CLI::Simple);
 
@@ -31,7 +33,7 @@ sub init {
   eval "require $class" ## no critic (ProhibitStringyEval)
     or die "Unknown backend type '$type' (tried $class): $EVAL_ERROR\n";
 
-  $self->set_backend( $class->new );
+  $self->set_backend( $class->new( logger => $self->get_logger ) );
 
   # default output filename derived from type unless explicitly set
   if ( !$self->get_output ) {
@@ -85,8 +87,53 @@ sub build_cpan_index {
 }
 
 ########################################################################
-# Resolve a Debian/RPM package name to its canonical CPAN module name.
-# Asks the backend for a best-guess, then validates against 02packages.
+# Load <type>-overrides.yml from the current directory into a cached hashref.
+# Maps system library name => [correct CPAN module names].
+# Returns an empty hashref if the file does not exist.
+########################################################################
+sub load_overrides {
+########################################################################
+  my ($self) = @_;
+
+  my $file      = $self->get_type . '-overrides.yml';
+  my $overrides = {};
+
+  if ( !-e $file ) {
+    my $dist_dir = dist_dir('CPAN-Sysdeps');
+    $file = "$dist_dir/$file";
+  }
+
+  if ( -e $file ) {
+    $overrides = LoadFile($file);
+    $self->get_logger->info( sprintf 'Loaded %d override(s) from %s', scalar keys %{$overrides}, $file );
+  }
+
+  return $overrides;
+}
+
+########################################################################
+# Stage an unresolved lib/guess pair into the in-memory todo list.
+# Accumulates guesses as array elements under the lib key — matching
+# the same format as the packages output file.
+# The caller (cmd_create_deps) writes the todo list to disk at end of run.
+########################################################################
+sub stage_override_todo {
+########################################################################
+  my ( $self, $lib, $guess ) = @_;
+
+  my $todo = $self->get_override_todo // {};
+  push @{ $todo->{$lib} }, $guess;
+  $self->set_override_todo($todo);
+
+  return;
+}
+
+########################################################################
+# Resolve a Debian/RPM package name to its canonical CPAN module name
+# via the 02packages lookup table.
+# Returns undef when unresolved — the caller stages the todo entry with
+# full lib context and skips the entry from the output file.
+# Overrides are applied post-hoc in cmd_create_deps via load_overrides.
 ########################################################################
 sub canonical_module {
 ########################################################################
@@ -99,9 +146,9 @@ sub canonical_module {
     return $canonical;
   }
 
-  $self->get_logger->warn( sprintf '  WARNING: %s not found in 02packages (guessed %s)', $pkg, $guess );
+  $self->get_logger->warn( sprintf 'WARNING: %s not found in 02packages (guessed %s)', $pkg, $guess );
 
-  return $guess;
+  return;
 }
 
 1;

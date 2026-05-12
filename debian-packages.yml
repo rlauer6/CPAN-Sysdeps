@@ -1,446 +1,422 @@
 ---
 libacl1-dev:
-- Linux::ACL
-libapr1-dev:
-- Apache::Ssllookup
-libapt-pkg-dev:
-- Apt::Pkg
+  - Linux::ACL
 libasound2-dev:
-- MIDI::ALSA
+  - MIDI::ALSA
 libaspell-dev:
-- Text::Aspell
+  - Text::Aspell
 libaugeas-dev:
-- Config::Augeas
-- Config::Model::Backend::Augeas
-libbam-dev:
-- Bio::Samtools
+  - Config::Augeas
+  - Config::Model::Backend::Augeas
 libblas-dev:
-- Math::TamuAnova
+  - Math::TamuAnova
 libbluetooth-dev:
-- Net::Bluetooth
+  - Net::Bluetooth
 libbrotli-dev:
-- IO::Compress::Brotli
+  - IO::Compress::Brotli
 libbsd-dev:
-- BSD::arc4random
+  - BSD::arc4random
 libbz2-dev:
-- Compress::Bzip2
-- Compress::Raw::Bzip2
-- Tokyocabinet
+  - Compress::Bzip2
+  - Compress::Raw::Bzip2
 libcairo-dev:
-- Cairo::GObject
+  - Cairo::GObject
 libcairo2-dev:
-- Cairo
-- Glib::Object::Introspection
+  - Cairo
+  - Glib::Object::Introspection
 libcap-dev:
-- Linux::Prctl
+  - Linux::Prctl
 libcdaudio-dev:
-- Audio::CD
+  - Audio::CD
 libcdio-dev:
-- Device::Cdio
+  - Device::Cdio
 libcdk5-dev:
-- Cdk
+  - Cdk
 libcfitsio-dev:
-- Astro::FITS::CFITSIO
+  - Astro::FITS::CFITSIO
 libchasen-dev:
-- Text::ChaSen
+  - Text::ChaSen
 libclang-dev:
-- Clang
+  - Clang
 libcmark-dev:
-- CommonMark
+  - CommonMark
 libcrack2-dev:
-- Crypt::Cracklib
+  - Crypt::Cracklib
 libcups2-dev:
-- Net::CUPS
+  - Net::CUPS
 libcupsfilters-dev:
-- Net::CUPS
+  - Net::CUPS
 libcupsimage2-dev:
-- Net::CUPS
+  - Net::CUPS
 libcurl4-gnutls-dev:
-- WWW::Curl
+  - WWW::Curl
 libdb-dev:
-- BerkeleyDB
+  - BerkeleyDB
 libdbus-1-dev:
-- Net::DBus
+  - Net::DBus
 libdbus-glib-1-dev:
-- Net::DBus::GLib
+  - Net::DBus::GLib
 libdiscid-dev:
-- MusicBrainz::DiscID
+  - MusicBrainz::DiscID
 libdumbnet-dev:
-- Net::Libdnet
+  - Net::Libdnet
 libecasoundc-dev:
-- Audio::Ecasound
+  - Audio::Ecasound
 libexpat1-dev:
-- App::Info
-- XML::Parser
-- XML::SAX::ExpatXS
+  - App::Info
+  - XML::Parser
+  - XML::SAX::ExpatXS
 libfann-dev:
-- AI::FANN
+  - AI::FANN
 libfcgi-dev:
-- FCGI
+  - FCGI
 libffi-dev:
-- FFI::Platypus
-- Glib::Object::Introspection
+  - FFI::Platypus
+  - Glib::Object::Introspection
 libfftw3-dev:
-- PDL::FFTW3
+  - PDL::FFTW3
 libflac-dev:
-- Audio::FLAC::Decoder
-- Audio::FLAC::Header
-libfreecontact-dev:
-- Freecontact
+  - Audio::FLAC::Decoder
+  - Audio::FLAC::Header
 libfreetype-dev:
-- Font::FreeType
-- Imager
+  - Font::FreeType
+  - Imager
 libfribidi-dev:
-- Text::Bidi
+  - Text::Bidi
 libfuse-dev:
-- Fuse
+  - Fuse
 libgcrypt20-dev:
-- Crypt::GCrypt
-- Net::SSH2
+  - Crypt::GCrypt
+  - Net::SSH2
 libgd-dev:
-- GD
-- PDL::IO::GD
+  - GD
+  - PDL::IO::GD
 libgdal-dev:
-- Geo::GDAL::FFI
+  - Geo::GDAL::FFI
 libgeoip-dev:
-- Geo::IP
+  - Geo::IP
 libgif-dev:
-- Image::Scale
-- Imager
+  - Image::Scale
+  - Imager
 libgirepository1.0-dev:
-- Glib::Object::Introspection
+  - Glib::Object::Introspection
 libgit2-dev:
-- Git::Raw
+  - Git::Raw
 libgl-dev:
-- OpenGL
-- OpenGL::Modern
-- PDL::Graphics::TriD
-- Wx::GLCanvas
-libgl1-mesa-dev | libgl-dev:
-- Alien::SDL
-- OpenGL::XScreenSaver
+  - OpenGL
+  - OpenGL::Modern
+  - PDL::Graphics::TriD
+  - Wx::GLCanvas
+'libgl1-mesa-dev | libgl-dev':
+  - Alien::SDL
+  - OpenGL::XScreenSaver
 libglfw3-dev:
-- OpenGL::GLFW
+  - OpenGL::GLFW
 libglib2.0-dev:
-- Glib
-- Glib::Object::Introspection
-- Net::Jabber::Loudmouth
-libglu1-mesa-dev | libglu-dev:
-- OpenGL
-- Wx::GLCanvas
+  - Glib
+  - Glib::Object::Introspection
+  - Net::Jabber::Loudmouth
+'libglu1-mesa-dev | libglu-dev':
+  - OpenGL
+  - Wx::GLCanvas
 libglut-dev:
-- PDL::Graphics::TriD
+  - PDL::Graphics::TriD
 libgmp-dev:
-- Crypt::DH::GMP
-- Math::BigInt::GMP
-- Math::GMP
-- Math::MPFR
-- Math::Prime::Util::GMP
+  - Crypt::DH::GMP
+  - Math::BigInt::GMP
+  - Math::GMP
+  - Math::MPFR
+  - Math::Prime::Util::GMP
 libgoocanvas-2.0-dev:
-- GooCanvas2::CairoTypes
+  - GooCanvas2::CairoTypes
 libgsl-dev:
-- Math::GSL
-- PDL::GSL
+  - Math::GSL
+  - PDL::GSL
 libgumbo-dev:
-- HTML::Gumbo
+  - HTML::Gumbo
 libharfbuzz-dev:
-- HarfBuzz::Shaper
+  - HarfBuzz::Shaper
 libhdf4-alt-dev:
-- PDL::IO::HDF
+  - PDL::IO::HDF
 libhdf5-dev:
-- PDL::IO::HDF5
+  - PDL::IO::HDF5
 libhiredis-dev:
-- Redis::Fast
+  - Redis::Fast
 libhts-dev:
-- Bio::DB::HTS
+  - Bio::DB::HTS
 libhttp-parser-dev:
-- Git::Raw
+  - Git::Raw
 libhunspell-dev:
-- Text::Hunspell
+  - Text::Hunspell
 libi2c-dev:
-- HiPi
+  - HiPi
 libidn-dev:
-- Net::LibIDN
+  - Net::LibIDN
 libidn2-dev:
-- Net::LibIDN2
-- Zonemaster::LDNS
-libimlib2-dev | libimlib2-dev:
-- Image::Imlib2
+  - Net::LibIDN2
+  - Zonemaster::LDNS
+'libimlib2-dev | libimlib2-dev':
+  - Image::Imlib2
 libiso9660-dev:
-- Device::Cdio
+  - Device::Cdio
 libjpeg-dev:
-- Alien::SDL
-- Image::Scale
-- Imager
+  - Alien::SDL
+  - Image::Scale
+  - Imager
 libkakasi2-dev:
-- Text::Kakasi
+  - Text::Kakasi
 libkrb5-dev:
-- Authen::Krb5
-- Authen::Krb5::Admin
-- Authen::Krb5::Simple
-- GSSAPI
+  - Authen::Krb5
+  - Authen::Krb5::Admin
+  - Authen::Krb5::Simple
+  - GSSAPI
 liblbfgs-dev:
-- Algorithm::LBFGS
+  - Algorithm::LBFGS
 libldap2-dev:
-- Mozilla::Ldap
-- Net::LDAPapi
+  - Net::LDAPapi
 libldns-dev:
-- Net::LDNS
-- Zonemaster::LDNS
-liblmdb-dev:
-- Lmdb::File
+  - Net::LDNS
+  - Zonemaster::LDNS
 libloudmouth1-dev:
-- Net::Jabber::Loudmouth
+  - Net::Jabber::Loudmouth
 liblz4-dev:
-- Compress::LZ4
+  - Compress::LZ4
 liblzma-dev:
-- Compress::Raw::Lzma
+  - Compress::Raw::Lzma
 libmagic-dev:
-- File::LibMagic
+  - File::LibMagic
 libmarkdown2-dev:
-- Text::Markdown::Discount
+  - Text::Markdown::Discount
 libmatio-dev:
-- PDL::IO::Matlab
+  - PDL::IO::Matlab
 libmaxminddb-dev:
-- IP::Geolocation::MMDB
-- MaxMind::DB::Reader::XS
+  - IP::Geolocation::MMDB
+  - MaxMind::DB::Reader::XS
 libmecab-dev:
-- Text::MeCab
+  - Text::MeCab
 libmemcached-dev:
-- Memcached::libmemcached
+  - Memcached::libmemcached
 libmpfr-dev:
-- Math::MPFR
+  - Math::MPFR
 libmsgpack-c-dev:
-- Data::MessagePack::Stream
+  - Data::MessagePack::Stream
 libmsgpack-dev:
-- Data::MessagePack
+  - Data::MessagePack
 libnanomsg-dev:
-- NanoMsg::Raw
+  - NanoMsg::Raw
 libnauty-dev:
-- Graph::Nauty
+  - Graph::Nauty
 libncurses-dev:
-- Curses
+  - Curses
 libnetcdf-dev:
-- PDL::NetCDF
+  - PDL::NetCDF
 libnsl-dev:
-- Net::NIS
-libnss3-dev:
-- Mozilla::Ldap
+  - Net::NIS
 libogg-dev:
-- Ogg::Vorbis::Decoder
+  - Ogg::Vorbis::Decoder
 libois-dev:
-- OIS
+  - OIS
 libopenblas-serial-dev:
-- PDL::LinearAlgebra
+  - PDL::LinearAlgebra
 libosp-dev:
-- SGML::Parser::OpenSP
+  - SGML::Parser::OpenSP
 libossp-uuid-dev:
-- App::Info
+  - App::Info
 libpam0g-dev:
-- Authen::PAM
+  - Authen::PAM
 libpango1.0-dev:
-- Pango
+  - Pango
 libpcap-dev:
-- Net::RawIP
+  - Net::RawIP
 libpcap0.8-dev:
-- Net::Pcap
+  - Net::Pcap
 libpcre2-dev:
-- HTML::Template::Pro
+  - HTML::Template::Pro
 libplot-dev:
-- Graphics::Libplot
+  - Graphics::Libplot
 libpng-dev:
-- Alien::SDL
-- Image::PNG::Libpng
-- Image::Scale
-- Imager
+  - Alien::SDL
+  - Image::PNG::Libpng
+  - Image::Scale
+  - Imager
 libpq-dev:
-- DBD::Pg
-- Pg
+  - DBD::Pg
+  - Pg
 libproj-dev:
-- Geo::LibProj::FFI
-- PDL::Transform::Proj4
+  - Geo::LibProj::FFI
+  - PDL::Transform::Proj4
 libqrencode-dev:
-- Imager::QRCode
-- Text::QRCode
+  - Imager::QRCode
+  - Text::QRCode
 librdkafka-dev:
-- Net::Kafka
+  - Net::Kafka
 libre2-dev:
-- re::engine::RE2
+  - re::engine::RE2
 libreadline-dev:
-- Term::ReadLine::Gnu
-librostlab-blast0-dev:
-- Rg::Blast::Parser
-librostlab3-dev:
-- Rg::Blast::Parser
+  - Term::ReadLine::Gnu
 librsvg2-dev:
-- Image::LibRSVG
+  - Image::LibRSVG
 libsane-dev:
-- Image::Sane
+  - Image::Sane
 libsasl2-dev:
-- Authen::SASL::XS
-- Net::LDAPapi
+  - Authen::SASL::XS
+  - Net::LDAPapi
 libsdl-gfx1.2-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl-image1.2-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl-mixer1.2-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl-net1.2-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl-pango-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl-ttf2.0-dev:
-- Alien::SDL
+  - Alien::SDL
 libsdl1.2-dev:
-- Alien::SDL
+  - Alien::SDL
 libshp-dev:
-- Geo::Shapelib
+  - Geo::Shapelib
 libslang2-dev:
-- Term::Slang
+  - Term::Slang
 libsmbclient-dev:
-- Filesys::SmbClient
+  - Filesys::SmbClient
 libsmpeg-dev:
-- Alien::SDL
+  - Alien::SDL
 libsnappy-dev:
-- Compress::Snappy
-libsolv-dev:
-- Bssolv
+  - Compress::Snappy
 libsombok-dev:
-- Unicode::LineBreak
+  - Unicode::LineBreak
 libsqlite3-dev:
-- Dbd::Sqlite3
+  - DBD::SQLite
 libssh2-1-dev:
-- Git::Raw
-- Net::SSH2
+  - Git::Raw
+  - Net::SSH2
 libssl-dev:
-- Crypt::OpenSSL::Bignum
-- Crypt::OpenSSL::DSA
-- Crypt::OpenSSL::EC
-- Crypt::OpenSSL::Guess
-- Crypt::OpenSSL::PKCS10
-- Crypt::OpenSSL::PKCS12
-- Crypt::OpenSSL::RSA
-- Crypt::OpenSSL::Random
-- Crypt::OpenSSL::X509
-- Crypt::SMIME
-- Crypt::SSLeay
-- DBD::MariaDB
-- DBD::mysql
-- Git::Raw
-- Net::DNS::SEC
-- Net::SSLeay
-- Net::TCLink
-- POE::Filter::SSL
-- Redis::Fast
-- Zonemaster::LDNS
+  - Crypt::OpenSSL::Bignum
+  - Crypt::OpenSSL::DSA
+  - Crypt::OpenSSL::EC
+  - Crypt::OpenSSL::Guess
+  - Crypt::OpenSSL::PKCS10
+  - Crypt::OpenSSL::PKCS12
+  - Crypt::OpenSSL::RSA
+  - Crypt::OpenSSL::Random
+  - Crypt::OpenSSL::X509
+  - Crypt::SMIME
+  - Crypt::SSLeay
+  - DBD::MariaDB
+  - DBD::mysql
+  - Git::Raw
+  - Net::DNS::SEC
+  - Net::SSLeay
+  - Net::TCLink
+  - POE::Filter::SSL
+  - Redis::Fast
+  - Zonemaster::LDNS
 libstaden-read-dev:
-- Bio::SCF
+  - Bio::SCF
 libsvm-dev:
-- Algorithm::SVM
+  - Algorithm::SVM
 libsystemd-dev:
-- Linux::Systemd
+  - Linux::Systemd
 libtamuanova-dev:
-- Math::TamuAnova
+  - Math::TamuAnova
 libtermkey-dev:
-- Term::TermKey
-- Tickit
+  - Term::TermKey
+  - Tickit
 libthai-dev:
-- Unicode::LineBreak
+  - Unicode::LineBreak
 libtickit-dev:
-- Tickit
+  - Tickit
 libtidy-dev:
-- HTML::Tidy
-- HTML::Tidy5
+  - HTML::Tidy
+  - HTML::Tidy5
 libtiff-dev:
-- Alien::SDL
-- Graphics::TIFF
-- Imager
+  - Alien::SDL
+  - Graphics::TIFF
+  - Imager
 libtirpc-dev:
-- Ace
-- Quota
-libtokyocabinet-dev:
-- Tokyocabinet
+  - Ace
+  - Quota
 libu2f-server-dev:
-- Crypt::U2F::Server
+  - Crypt::U2F::Server
 libunbound-dev:
-- Net::DNS::Resolver::Unbound
+  - Net::DNS::Resolver::Unbound
 libunibilium-dev:
-- Tickit
+  - Tickit
 libusb-1.0-0-dev:
-- USB::LibUSB
+  - USB::LibUSB
 libusb-dev:
-- Device::USB
+  - Device::USB
 libv4l-dev:
-- Video::Capture::V4l
+  - Video::Capture::V4l
 libvirt-dev:
-- Sys::Virt
+  - Sys::Virt
 libvorbis-dev:
-- Ogg::Vorbis::Decoder
+  - Ogg::Vorbis::Decoder
 libwebkit2gtk-4.1-dev:
-- Gtk3::WebKit2
+  - Gtk3::WebKit2
 libwrap0-dev:
-- Authen::Libwrap
+  - Authen::Libwrap
 libwxgtk-media3.2-dev:
-- Alien::wxWidgets
+  - Alien::wxWidgets
 libwxgtk-webview3.2-dev:
-- Alien::wxWidgets
+  - Alien::wxWidgets
 libwxgtk3.2-dev:
-- Alien::wxWidgets
+  - Alien::wxWidgets
 libx11-dev:
-- OpenGL
-- OpenGL::Modern
-- OpenGL::XScreenSaver
-- Tk::TableMatrix
-- Wx::GLCanvas
+  - OpenGL
+  - OpenGL::Modern
+  - OpenGL::XScreenSaver
+  - Tk::TableMatrix
+  - Wx::GLCanvas
 libxapian-dev:
-- Search::Xapian
+  - Search::Xapian
 libxcb-ewmh-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-icccm4-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-randr0-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-render0-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-util-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-xinerama0-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-xinput-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-xkb-dev:
-- X11::XCB
+  - X11::XCB
 libxcb-xtest0-dev:
-- X11::XCB
+  - X11::XCB
 libxcb1-dev:
-- X11::XCB
+  - X11::XCB
 libxext-dev:
-- PDL::Graphics::TriD
+  - PDL::Graphics::TriD
 libxi-dev:
-- PDL::Graphics::TriD
+  - PDL::Graphics::TriD
 libxml2-dev:
-- Config::Augeas
-- XML::LibXML
-- XML::LibXSLT
+  - Config::Augeas
+  - XML::LibXML
+  - XML::LibXSLT
 libxmu-dev:
-- PDL::Graphics::TriD
+  - PDL::Graphics::TriD
 libxslt1-dev:
-- XML::LibXSLT
+  - XML::LibXSLT
 libxt-dev:
-- X11::GUITest
+  - X11::GUITest
 libxtst-dev:
-- X11::GUITest
+  - X11::GUITest
 libxxhash-dev:
-- Crypt::xxHash
+  - Crypt::xxHash
 libyaml-dev:
-- YAML::LibYAML
+  - YAML::LibYAML
 libyaz-dev:
-- Net::Z3950::SimpleServer
-- Net::Z3950::ZOOM
-libzerg0-dev:
-- Zerg
+  - Net::Z3950::SimpleServer
+  - Net::Z3950::ZOOM
 libzmq3-dev:
-- ZMQ::FFI
+  - ZMQ::FFI
 libzstd-dev:
-- Sereal::Decoder
-- Sereal::Encoder
+  - Sereal::Decoder
+  - Sereal::Encoder

@@ -84,6 +84,6 @@ Rob Lauer <rlauer@treasurersbriefcase.com>
 
 Hey! **The above document had some coding errors, which are explained below:**
 
-- Around line 139:
+- Around line 186:
 
     Non-ASCII character seen before =encoding in '—'. Assuming UTF-8

@@ -1,5 +1,6 @@
 CLI::Simple 2.0.1
 CLI::Simple::Constants 2.0.1
+File::ShareDir 1.118
 HTTP::Tiny 0.088
 IO::Uncompress::UnZstd 2.217
 Readonly 2.05

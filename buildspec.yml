@@ -19,7 +19,9 @@ extra-files:
       - README.md
       - cpan-sysdeps.yml
       - debian-packages.yml
+      - debian-overrides.yml
       - fedora-packages.yml
+      - fedora-overrides.yml
 resources:
   bugtracker:
     mailto: rclauer@gmail.com
